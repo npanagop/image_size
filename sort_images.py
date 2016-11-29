@@ -60,6 +60,13 @@ def main():
                     print("Moving "+file)
                     shutil.move(file_path, os.path.join(sort_path, file))
 
+    try:
+        os.rmdir(sort_path)
+        print("Deleting empty folder: "+folder)
+    except OSError:
+        #Raises error if not empty
+        pass
+
 
 def setup_parser():
     parser = argparse.ArgumentParser(description="Move images with dimensions\
