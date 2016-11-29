@@ -15,6 +15,8 @@ sort_images.py
 
 import argparse
 import os
+import shutil
+
 import get_image_size
 
 supported_types = ".png .jpeg .jpg .gif .bmp .ico .tiff .tif"
@@ -22,6 +24,8 @@ supported_types = ".png .jpeg .jpg .gif .bmp .ico .tiff .tif"
 
 def main():
     dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    folder = "sorted"
 
     args = setup_parser()
 
@@ -31,15 +35,32 @@ def main():
     if not(args.path == ""):
         dir_path = os.path.join(dir_path, args.path)
 
+    if not(args.folder == ""):
+        folder = args.folder
+
+    sort_path = os.path.join(dir_path, folder)
+
+    print("Making sort folder "+folder+" in "+dir_path)
+    try:
+        os.mkdir(sort_path)
+    except OSError:
+        print("Folder already exists")
+
+    min_width = args.width
+    min_height = args.height
+
     for root, dirs, files in os.walk(dir_path):
+        print("Searching "+root)
         for file in files:
+            file_path = os.path.join(root, file)
             try:
-                width, height = get_image_size.get_image_size(os.path.join
-                                                              (root, file))
+                width, height = get_image_size.get_image_size(file_path)
             except get_image_size.UnknownImageFormat:
                 print("Can't get size of "+file+" Propably not an image.")
             else:
-                print(width, height)
+                if (width < min_width) and (height < min_height):
+                    print("Moving "+file)
+                    shutil.move(file_path, os.path.join(sort_path, file))
 
 
 def setup_parser():
