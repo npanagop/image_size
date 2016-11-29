@@ -17,6 +17,7 @@ TODO
 - Add argument option to search only for width, height, both or either(&& or ||)
 - Delete sort folder at the end if it's empty
 - Add option for hard clean(deleting the sorted pictures)
+- Dont scan folder with same name as sorted folder
 
 Supports PNG, JPEG, GIF, BMP, ICO and TIF image format.
 
