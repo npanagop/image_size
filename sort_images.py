@@ -45,6 +45,9 @@ def main():
     min_height = args.height
 
     for root, dirs, files in os.walk(dir_path):
+        if root == sort_path:
+            print("Skipping folder "+folder)
+            continue
         print("Searching "+root)
         for file in files:
             file_path = os.path.join(root, file)
