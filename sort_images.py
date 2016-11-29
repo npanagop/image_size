@@ -19,13 +19,9 @@ import shutil
 
 import get_image_size
 
-supported_types = ".png .jpeg .jpg .gif .bmp .ico .tiff .tif"
-
 
 def main():
     dir_path = os.path.dirname(os.path.realpath(__file__))
-
-    folder = "sorted"
 
     args = setup_parser()
 
@@ -35,8 +31,7 @@ def main():
     if not(args.path == ""):
         dir_path = os.path.join(dir_path, args.path)
 
-    if not(args.folder == ""):
-        folder = args.folder
+    folder = args.folder
 
     sort_path = os.path.join(dir_path, folder)
 
