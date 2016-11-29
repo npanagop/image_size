@@ -13,7 +13,6 @@ TODO
 ----
 
 - Add usage with examples to readme
-- Add verbose option argument
 - Add argument option to search only for width, height, both or either(&& or ||)
 - Delete sort folder at the end if it's empty
 - Add option for hard clean(deleting the sorted pictures)

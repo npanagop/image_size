@@ -28,44 +28,56 @@ def main():
     width = -1
     height = -1
 
+    verbFlag = args.verbose
+
     if not(args.path == ""):
         dir_path = os.path.join(dir_path, args.path)
 
     folder = args.folder
 
     sort_path = os.path.join(dir_path, folder)
+    if verbFlag:
+        print("Making sort folder "+folder+" in "+dir_path)
 
-    print("Making sort folder "+folder+" in "+dir_path)
     try:
         os.mkdir(sort_path)
     except OSError:
-        print("Folder already exists")
+        if verbFlag:
+            print("Folder already exists")
 
     min_width = args.width
     min_height = args.height
 
     for root, dirs, files in os.walk(dir_path):
         if root == sort_path:
-            print("Skipping folder "+folder)
+            if verbFlag:
+                print("Skipping folder "+folder)
             continue
-        print("Searching "+root)
+        if verbFlag:
+            print("Searching "+root)
         for file in files:
             file_path = os.path.join(root, file)
             try:
                 width, height = get_image_size.get_image_size(file_path)
             except get_image_size.UnknownImageFormat:
-                print("Can't get size of "+file+" Propably not an image.")
+                if verbFlag:
+                    print("Can't get size of "+file+" Propably not an image.")
             else:
                 if (width < min_width) and (height < min_height):
-                    print("Moving "+file)
+                    if verbFlag:
+                        print("Moving "+file)
                     shutil.move(file_path, os.path.join(sort_path, file))
 
     try:
         os.rmdir(sort_path)
-        print("Deleting empty folder: "+folder)
+        if verbFlag:
+            print("Deleting empty folder: "+folder)
     except OSError:
-        #Raises error if not empty
+        # Raises error if not empty
         pass
+
+    if verbFlag:
+        print("Action completed.")
 
 
 def setup_parser():
@@ -87,6 +99,9 @@ def setup_parser():
     parser.add_argument("-f", "--folder", nargs='?', default='sorted',
                         const='sorted', help="name of the folder where detected\
                         images will be moved to")
+
+    parser.add_argument("-v", "--verbose", action="store_true", help="increase\
+                         output verosity")
 
     return parser.parse_args()
 
