@@ -14,8 +14,6 @@ TODO
 
 - Add usage with examples to readme
 - Add argument option to search only for width, height, both or either(&& or ||)
-- Delete sort folder at the end if it's empty
-- Add option for hard clean(deleting the sorted pictures)
 - Add comments
 
 Supports PNG, JPEG, GIF, BMP, ICO and TIF image format.
