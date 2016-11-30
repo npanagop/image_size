@@ -29,6 +29,7 @@ def main():
     height = -1
 
     verbFlag = args.verbose
+    cleanFlag = args.clean
 
     if not(args.path == ""):
         dir_path = os.path.join(dir_path, args.path)
@@ -68,13 +69,18 @@ def main():
                         print("Moving "+file)
                     shutil.move(file_path, os.path.join(sort_path, file))
 
-    try:
-        os.rmdir(sort_path)
+    if cleanFlag:
+        shutil.rmtree(sort_path)
         if verbFlag:
-            print("Deleting empty folder: "+folder)
-    except OSError:
-        # Raises error if not empty
-        pass
+            print("Deleting folder: "+folder)
+    else:
+        try:
+            os.rmdir(sort_path)
+            if verbFlag:
+                print("Deleting empty folder: "+folder)
+        except OSError:
+            # Raises error if not empty
+            pass
 
     if verbFlag:
         print("Action completed.")
@@ -102,6 +108,9 @@ def setup_parser():
 
     parser.add_argument("-v", "--verbose", action="store_true", help="increase\
                          output verosity")
+
+    parser.add_argument("-c", "--clean", action="store_true", help="delete the\
+                        sorted pictures")
 
     return parser.parse_args()
 
