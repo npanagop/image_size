@@ -15,6 +15,7 @@ TODO
 - Add usage with examples to readme
 - Add argument option to search only for width, height, both or either(&& or ||)
 - Add comments
+- Add ability to sort by aspect ratio instead of resolution
 
 Supports PNG, JPEG, GIF, BMP, ICO and TIF image format.
 

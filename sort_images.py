@@ -16,7 +16,6 @@ sort_images.py
 import argparse
 import os
 import shutil
-import textwrap
 
 import get_image_size
 
@@ -25,8 +24,6 @@ def main():
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
     args = setup_parser()
-    print(args)
-    return
 
     width = -1
     height = -1
@@ -52,6 +49,18 @@ def main():
     min_width = args.width
     min_height = args.height
 
+    if (min_width == -1) and (min_height == -1):
+        print("Please enter proper arguments.")
+        return
+    elif min_width == -1:
+        flagSort = "height"
+    elif min_height == -1:
+        flagSort = "width"
+    elif args.either:
+        flagSort = "either"
+    else:
+        flagSort = "both"
+
     for root, dirs, files in os.walk(dir_path):
         if root == sort_path:
             if verbFlag:
@@ -60,6 +69,7 @@ def main():
         if verbFlag:
             print("Searching "+root)
         for file in files:
+            valid = False
             file_path = os.path.join(root, file)
             try:
                 width, height = get_image_size.get_image_size(file_path)
@@ -67,7 +77,19 @@ def main():
                 if verbFlag:
                     print("Can't get size of "+file+" Propably not an image.")
             else:
-                if (width < min_width) and (height < min_height):
+                if flagSort == "height":
+                    if height < min_height:
+                        valid = True
+                elif flagSort == "width":
+                    if width < min_width:
+                        valid = True
+                elif flagSort == "either":
+                    if (width < min_width) or (height < min_height):
+                        valid = True
+                elif flagSort == "both":
+                    if (width < min_width) and (height < min_height):
+                        valid = True
+                if valid:
                     if verbFlag:
                         print("Moving "+file)
                     shutil.move(file_path, os.path.join(sort_path, file))
@@ -100,7 +122,7 @@ def setup_parser():
 
     parser.add_argument("--height", type=int, default="-1", help="images with height less than the value defined will be moved to the folder <folder>")
 
-    parser.add_argument("--or", action="store_true", help="when providing both width and height arguments use this to make the sorter check if image width OR height is smaller than the defined values")
+    parser.add_argument("--either", action="store_true", help="when providing both width and height arguments use this to make the sorter check if image width OR height is smaller than the defined values")
 
     parser.add_argument("-p", "--path", nargs='?', default='', const='',
                         help="path to the folder where you want the script to scan")
