@@ -139,7 +139,7 @@ def setup_parser():
     --width W: Images with width smaller than W will be sorted.
     --height H: Images with height smaller than H will be sorted.
     --width W --height H: Images with width smaller than W AND height smaller than H will be sorted.
-    --width W --height H --or: Images with width smaller than W OR height smaller than H will be sorted.""", formatter_class=argparse.RawTextHelpFormatter)
+    --width W --height H --either: Images with width smaller than W OR height smaller than H will be sorted.""", formatter_class=argparse.RawTextHelpFormatter)
 
     parser.add_argument("--width", type=int, default="-1", help="images with width less than the value defined will be moved to the folder <folder>")
 
