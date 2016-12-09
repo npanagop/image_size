@@ -61,7 +61,7 @@ def main():
     # Check which sort mode will be used based on arguments given
     if (min_width == -1) and (min_height == -1):
         # No proper arguments where given
-        print("Please enter proper arguments.")
+        print("Please enter proper arguments. (-h for usage)")
         return
     elif min_width == -1:
         # Sort images only by height
