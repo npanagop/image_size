@@ -13,7 +13,7 @@ TODO
 ----
 
 - Add usage with examples to readme
-- Add ability to sort by aspect ratio instead of resolution
+- Maintain picture folder structure when moving to sorteds 
 
 Supports PNG, JPEG, GIF, BMP, ICO and TIF image format.
 
