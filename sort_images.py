@@ -136,6 +136,7 @@ def main():
 
 def setup_parser():
     parser = argparse.ArgumentParser(description="""Move images with dimensions smaller than the ones defined to the folder <folder> (default: 'sorted').
+    --ar: Images will be sorted into folders corresponding to their aspect ratio. If this argument is given, "width" "height" and "either" arguments will be ingored.
     --width W: Images with width smaller than W will be sorted.
     --height H: Images with height smaller than H will be sorted.
     --width W --height H: Images with width smaller than W AND height smaller than H will be sorted.
@@ -156,6 +157,8 @@ def setup_parser():
     parser.add_argument("-v", "--verbose", action="store_true", help="increase output verosity")
 
     parser.add_argument("-c", "--clean", action="store_true", help="delete the sorted pictures")
+
+    parser.add_argument("--ar", action="store_true", help="Sort images by aspect ratio.")
 
     return parser.parse_args()
 
