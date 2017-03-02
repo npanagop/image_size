@@ -3,7 +3,7 @@ sort_images.py
 ====================
 
     :Name:        sort_images
-    :Purpose:     extract image dimensions given a file path
+    :Purpose:     Scan a path for images and separate those who are below a predefined resolution 
 
     :Author:      Nick Panagopoulos
 
